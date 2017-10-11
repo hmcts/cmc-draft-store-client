@@ -5,8 +5,6 @@ import { DraftService } from 'common/draft/draftService'
 import DraftStoreClient from 'common/draft/draftStoreClient'
 import { DraftStoreClientFactory } from 'common/draft/draftStoreClientFactory'
 
-
-
 module.exports = {
   Draft,
   DraftDocument,
