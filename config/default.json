@@ -1,0 +1,41 @@
+{
+  "security": {
+    "referrerPolicy": "origin"
+  },
+  "idam": {
+    "authentication-web": {
+      "url": "https://localhost:8000"
+    },
+    "api": {
+      "url": "http://localhost:8080"
+    },
+    "service-2-service-auth": {
+      "url": "http://localhost:4552",
+      "totpSecret": "AAAAAAAAAAAAAAAA",
+      "microservice": "cmc"
+    }
+  },
+  "draft-store": {
+    "url": "http://localhost:8800"
+  },
+  "session": {
+    "cookieName": "SESSION_ID"
+  },
+  "support": {
+    "contact-email": "i-am-configurable@example.com"
+  },
+  "feedback": {
+    "serviceSurvey": {
+      "url": "http://www.smartsurvey.co.uk/s/not-a-real-service-survey/"
+    },
+    "feedbackSurvey": {
+      "url": "http://www.smartsurvey.co.uk/s/not-a-real-feedback-survey/"
+    },
+    "reportProblemSurvey": {
+      "url": "http://www.smartsurvey.co.uk/s/not-a-real-problem-survey/"
+    }
+  },
+  "http": {
+    "timeout": 10000
+  }
+}
