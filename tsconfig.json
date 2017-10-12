@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "declaration": false,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "lib": [
+      "es6",
+      "es2017.object",
+      "dom"
+    ],
+    "target": "es5",
+    "baseUrl": "src/main",
+    "paths": {
+      "app/*": [
+        "app/*"
+      ],
+      "client/*": [
+        "app/client/*"
+      ],
+      "drafts/*": [
+        "app/drafts/*"
+      ],
+      "health/*": [
+        "app/health/*"
+      ],
+      "idam/*": [
+        "app/idam/*"
+      ],
+      "logging/*": [
+        "app/logging/*"
+      ],
+      "models/*": [
+        "app/models/*"
+      ],
+      "common/*": [
+        "common/*"
+      ],
+      "testing-support/*": [
+        "features/testing-support/*"
+      ]
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ]
+  }
+}
