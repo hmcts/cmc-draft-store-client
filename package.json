@@ -8,9 +8,10 @@
   },
   "main":"src/main/index.ts",
   "scripts": {
-    "start": "./node_modules/.bin/ts-node -r tsconfig-paths/register src/main/server.ts",
     "lint": "tslint --project tsconfig.json --type-check && sass-lint -v -q",
-    "test": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --opts mocha.opts $(find src/test \\( -name '*.ts' -or -name '*.js' \\) ! -path '*a11y*' ! -path '*/routes/*') --reporter-options reportFilename=unit,inlineAssets=true,reportTitle=citizen-frontend-unit"
+    "test": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --opts mocha.opts $(find src/test \\( -name '*.ts' -or -name '*.js' \\) ! -path '*a11y*' ! -path '*/routes/*') --reporter-options reportFilename=unit,inlineAssets=true,reportTitle=citizen-frontend-unit",
+    "precommit": "yarn lint",
+    "prepush": "yarn test"
   },
   "repository": {
     "type": "git",
