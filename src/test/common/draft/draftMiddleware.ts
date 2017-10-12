@@ -9,8 +9,15 @@ import { DraftMiddleware } from 'common/draft/draftMiddleware'
 
 import DraftStoreClient from 'common/draft/draftStoreClient'
 import { DraftStoreClientFactory } from 'common/draft/draftStoreClientFactory'
+import * as requestPromise from 'request-promise-native'
+import { DraftStoreConfig } from '../../http-mocks/draftStoreConfig'
 
 chai.use(spies)
+const request = requestPromise
+  .defaults({
+    json: true,
+    timeout: 10000
+  })
 
 describe('Draft middleware', () => {
   describe('request handler', () => {
@@ -19,7 +26,7 @@ describe('Draft middleware', () => {
 
     beforeEach(() => {
       factoryFn = sinon.stub(DraftStoreClientFactory, 'create').callsFake(() => {
-        return new DraftStoreClient('service-jwt-token')
+        return new DraftStoreClient('service-jwt-token', DraftStoreConfig.draftStoreUrl, request)
       })
       findFn = sinon.stub(DraftStoreClient.prototype, 'find').callsFake((args, x, y) => {
         return Promise.resolve([])
@@ -38,7 +45,7 @@ describe('Draft middleware', () => {
         bearerToken: 'user-jwt-token'
       }
 
-      await DraftMiddleware.requestHandler('default')(req(), res, sinon.spy())
+      await DraftMiddleware.requestHandler('default', DraftStoreConfig.draftStoreUrl, request)(req(), res, sinon.spy())
       chai.expect(findFn).to.have.been.called
     })
 
@@ -46,7 +53,7 @@ describe('Draft middleware', () => {
       const res: express.Response = mockRes()
       res.locals.isLoggedIn = false
 
-      await DraftMiddleware.requestHandler('default')(req(), res, sinon.spy())
+      await DraftMiddleware.requestHandler('default', DraftStoreConfig.draftStoreUrl, request)(req(), res, sinon.spy())
       chai.expect(findFn).to.not.have.been.called
     })
 
@@ -54,7 +61,7 @@ describe('Draft middleware', () => {
       const res: express.Response = mockRes()
       res.locals.isLoggedIn = undefined
 
-      await DraftMiddleware.requestHandler('default')(req(), res, sinon.spy())
+      await DraftMiddleware.requestHandler('default', DraftStoreConfig.draftStoreUrl, request)(req(), res, sinon.spy())
       chai.expect(findFn).to.not.have.been.called
     })
   })

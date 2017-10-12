@@ -1,24 +1,26 @@
-import * as config from 'config'
-import request from 'app/client/request'
-
 import { Draft } from 'app/models/draft'
 import { DraftDocument } from 'app/models/draftDocument'
-import { MomentFactory } from 'common/momentFactory'
-
-const endpointURL: string = `${config.get<any>('draft-store').url}/drafts`
+import { CoreOptions, RequestAPI } from 'request'
+import { RequestPromise } from 'request-promise-native'
+import moment = require('moment')
 
 export default class DraftStoreClient<T extends DraftDocument> {
   private serviceAuthToken: string
+  private endpointURL: string
+  private request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>
 
-  constructor (serviceAuthToken: string) {
+  constructor (serviceAuthToken: string, endpointURL: string, request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>) {
     this.serviceAuthToken = serviceAuthToken
+    this.endpointURL = endpointURL
+    this.request = request
+
   }
 
   find (query: { [key: string]: string }, userAuthToken: string, deserializationFn: (value: any) => T): Promise<Draft<T>[]> {
     const { type, ...qs } = query
 
-    return request
-      .get(endpointURL, {
+    return this.request
+      .get(this.endpointURL, {
         qs: qs,
         headers: this.authHeaders(userAuthToken)
       })
@@ -30,8 +32,8 @@ export default class DraftStoreClient<T extends DraftDocument> {
               draft.id,
               draft.type,
               deserializationFn(draft.document),
-              MomentFactory.parse(draft.created),
-              MomentFactory.parse(draft.updated)
+              moment(draft.created),
+              moment(draft.updated)
             )
           })
       })
@@ -47,9 +49,9 @@ export default class DraftStoreClient<T extends DraftDocument> {
     }
 
     if (!draft.id) {
-      return request.post(endpointURL, options)
+      return this.request.post(this.endpointURL, options)
     } else {
-      return request.put(`${endpointURL}/${draft.id}`, options)
+      return this.request.put(`${this.endpointURL}/${draft.id}`, options)
     }
   }
 
@@ -58,7 +60,7 @@ export default class DraftStoreClient<T extends DraftDocument> {
       throw new Error('Draft does not have an ID - it cannot be deleted')
     }
 
-    return request.delete(`${endpointURL}/${draft.id}`, {
+    return this.request.delete(`${this.endpointURL}/${draft.id}`, {
       headers: this.authHeaders(userAuthToken)
     })
   }

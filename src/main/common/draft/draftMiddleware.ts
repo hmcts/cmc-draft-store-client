@@ -7,12 +7,14 @@ import { Draft } from 'app/models/draft'
 import { DraftDocument } from 'app/models/draftDocument'
 
 import { UUIDUtils } from 'common/utils/uuidUtils'
+import { CoreOptions, RequestAPI } from 'request'
+import { RequestPromise } from 'request-promise-native'
 
 /**
  * Filters list of drafts to return only these matching external ID. If none of the drafts has external ID set
  * then unchanged list is returned so that they can be migrated to new format with external ID (legacy drafts scenario).
  */
-function tryFilterByExternalId <T extends DraftDocument> (drafts: Draft<T>[], externalId: string): Draft<T>[] {
+function tryFilterByExternalId<T extends DraftDocument> (drafts: Draft<T>[], externalId: string): Draft<T>[] {
   if (drafts.filter(draft => draft.document.externalId !== undefined).length === 0) {
     return drafts
   }
@@ -22,11 +24,14 @@ function tryFilterByExternalId <T extends DraftDocument> (drafts: Draft<T>[], ex
 
 export class DraftMiddleware {
 
-  static requestHandler<T extends DraftDocument> (draftType: string, deserializeFn: (value: any) => T = (value) => value): express.RequestHandler {
+  static requestHandler<T extends DraftDocument> (draftType: string,
+                                                  draftStoreUrl: string,
+                                                  request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>,
+                                                  deserializeFn: (value: any) => T = (value) => value): express.RequestHandler {
     return async function (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
       if (res.locals.isLoggedIn) {
         try {
-          const client: DraftStoreClient<T> = await DraftStoreClientFactory.create<T>()
+          const client: DraftStoreClient<T> = await DraftStoreClientFactory.create<T>(draftStoreUrl, request)
 
           client
             .find({ type: draftType, limit: '100' }, res.locals.user.bearerToken, deserializeFn)
