@@ -22,22 +22,8 @@
     "url": "DRAFT_STORE_URL",
     "apiVersion": "DRAFT_STORE_API_VERSION"
   },
-  "analytics": {
-    "gaTrackingId": "GA_TRACKING_ID"
-  },
   "session": {
     "cookieName": "JWT_COOKIE_NAME"
-  },
-  "feedback": {
-    "serviceSurvey": {
-      "url": "SERVICE_SURVEY_URL"
-    },
-    "feedbackSurvey": {
-      "url": "FEEDBACK_SURVEY_URL"
-    },
-    "reportProblemSurvey": {
-      "url": "REPORT_PROBLEM_SURVEY_URL"
-    }
   },
   "http": {
     "timeout": "HTTP_TIMEOUT"
