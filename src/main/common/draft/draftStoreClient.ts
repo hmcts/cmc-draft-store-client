@@ -18,9 +18,10 @@ export default class DraftStoreClient<T extends DraftDocument> {
 
   find (query: { [key: string]: string }, userAuthToken: string, deserializationFn: (value: any) => T): Promise<Draft<T>[]> {
     const { type, ...qs } = query
+    const endpointURL: string = `${this.endpointURL}/drafts`
 
     return this.request
-      .get(this.endpointURL, {
+      .get(endpointURL, {
         qs: qs,
         headers: this.authHeaders(userAuthToken)
       })
