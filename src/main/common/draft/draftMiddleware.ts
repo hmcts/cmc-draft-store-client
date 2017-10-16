@@ -24,9 +24,7 @@ function tryFilterByExternalId<T extends DraftDocument> (drafts: Draft<T>[], ext
 }
 
 export class DraftMiddleware {
-  private serviceAuthTokenFactory: ServiceAuthTokenFactory
-
-  constructor (serviceAuthTokenFactory: ServiceAuthTokenFactory) {
+  constructor (public serviceAuthTokenFactory: ServiceAuthTokenFactory) {
     this.serviceAuthTokenFactory = serviceAuthTokenFactory
   }
 

@@ -5,15 +5,12 @@ import { RequestPromise } from 'request-promise-native'
 import moment = require('moment')
 
 export default class DraftStoreClient<T extends DraftDocument> {
-  private serviceAuthToken: string
-  private endpointURL: string
-  private request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>
-
-  constructor (serviceAuthToken: string, endpointURL: string, request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>) {
+  constructor (public serviceAuthToken: string,
+               public endpointURL: string,
+               public request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>) {
     this.serviceAuthToken = serviceAuthToken
     this.endpointURL = endpointURL
     this.request = request
-
   }
 
   find (query: { [key: string]: string }, userAuthToken: string, deserializationFn: (value: any) => T): Promise<Draft<T>[]> {

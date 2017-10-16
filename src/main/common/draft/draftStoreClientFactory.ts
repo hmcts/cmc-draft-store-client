@@ -6,9 +6,7 @@ import { RequestPromise } from 'request-promise-native'
 import { ServiceAuthTokenFactory } from 'common/security/serviceTokenFactory'
 
 export class DraftStoreClientFactory {
-  private serviceAuthTokenFactory: ServiceAuthTokenFactory
-
-  constructor (serviceAuthTokenFactory: ServiceAuthTokenFactory) {
+  constructor (public serviceAuthTokenFactory: ServiceAuthTokenFactory) {
     this.serviceAuthTokenFactory = serviceAuthTokenFactory
   }
 
