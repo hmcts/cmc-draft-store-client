@@ -7,15 +7,19 @@ import { CoreOptions, RequestAPI } from 'request'
 import { RequestPromise } from 'request-promise-native'
 
 export class DraftService {
+  constructor (public draftStoreUri: string, public request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>) {
+    this.draftStoreUri = draftStoreUri
+    this.request = request
+  }
 
-  static async save<T extends DraftDocument> (draft: Draft<T>, userToken: string, draftStoreUri: string, request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>): Promise<void> {
+  async save<T extends DraftDocument> (draft: Draft<T>, userToken: string): Promise<void> {
 
-    const client: DraftStoreClient<T> = await DraftStoreClientFactory.create<T>(draftStoreUri, request)
+    const client: DraftStoreClient<T> = await DraftStoreClientFactory.create<T>(this.draftStoreUri, this.request)
     return client.save(draft, userToken)
   }
 
-  static async delete<T extends DraftDocument> (draft: Draft<T>, userToken: string, draftStoreUri: string, request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>): Promise<void> {
-    const client: DraftStoreClient<T> = await DraftStoreClientFactory.create<T>(draftStoreUri, request)
+  async delete<T extends DraftDocument> (draft: Draft<T>, userToken: string): Promise<void> {
+    const client: DraftStoreClient<T> = await DraftStoreClientFactory.create<T>(this.draftStoreUri, this.request)
     return client.delete(draft, userToken)
   }
 }
