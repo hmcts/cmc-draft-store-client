@@ -28,7 +28,7 @@ describe('DraftStoreClient', () => {
   let factory: DraftStoreClientFactory
   beforeEach(() => {
 
-    let authTokenFactory = <ServiceAuthTokenFactory>{}
+    let authTokenFactory = {} as ServiceAuthTokenFactory
     authTokenFactory.get = sinon.stub().returns(new ServiceAuthToken('jwt-token'))
     factory = new DraftStoreClientFactory(authTokenFactory)
   })

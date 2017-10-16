@@ -29,7 +29,7 @@ describe('Draft middleware', () => {
     let draftMiddleWare: DraftMiddleware
 
     beforeEach(() => {
-      let authTokenFactory = <ServiceAuthTokenFactory>{}
+      let authTokenFactory = {} as ServiceAuthTokenFactory
       authTokenFactory.get = sinon.stub().returns(new ServiceAuthToken('service-jwt-token'))
 
       factory = new DraftStoreClientFactory(authTokenFactory)
