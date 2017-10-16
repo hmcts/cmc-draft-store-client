@@ -3,12 +3,14 @@ import ServiceAuthToken from 'app/idam/serviceAuthToken'
 import DraftStoreClient from 'common/draft/draftStoreClient'
 import { CoreOptions, RequestAPI } from 'request'
 import { RequestPromise } from 'request-promise-native'
+import { ServiceAuthTokenFactory } from 'common/security/serviceTokenFactory'
 
 export class DraftStoreClientFactory {
 
   static async create<T extends DraftDocument> (draftStoreUrl: string, request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>): Promise<DraftStoreClient<T>> {
-    const { ServiceAuthTokenFactory } = await import('' + 'common/security/serviceTokenFactory')
-    const serviceAuthToken: ServiceAuthToken = await (new ServiceAuthTokenFactory()).get()
+    const { ServiceAuthTokenFactoryImpl } = await import('' + 'common/security/serviceTokenFactoryImpl')
+    const factory: ServiceAuthTokenFactory = (new ServiceAuthTokenFactoryImpl())
+    const serviceAuthToken: ServiceAuthToken = await factory.get()
     return new DraftStoreClient(serviceAuthToken.bearerToken, draftStoreUrl, request)
   }
 }
