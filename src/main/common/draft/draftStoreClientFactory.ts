@@ -11,8 +11,7 @@ export class DraftStoreClientFactory {
   }
 
   async create<T extends DraftDocument> (draftStoreUrl: string, request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>): Promise<DraftStoreClient<T>> {
-    const factory: ServiceAuthTokenFactory = this.serviceAuthTokenFactory
-    const serviceAuthToken: ServiceAuthToken = await factory.get()
+    const serviceAuthToken: ServiceAuthToken = await this.serviceAuthTokenFactory.get()
     return new DraftStoreClient(serviceAuthToken.bearerToken, draftStoreUrl, request)
   }
 }
