@@ -49,10 +49,12 @@ export default class DraftStoreClient<T extends DraftDocument> {
       }
     }
 
+    const endpointURL: string = `${this.endpointURL}/drafts`
+
     if (!draft.id) {
-      return this.request.post(this.endpointURL, options)
+      return this.request.post(endpointURL, options)
     } else {
-      return this.request.put(`${this.endpointURL}/${draft.id}`, options)
+      return this.request.put(`${endpointURL}/${draft.id}`, options)
     }
   }
 
@@ -60,8 +62,9 @@ export default class DraftStoreClient<T extends DraftDocument> {
     if (!draft.id) {
       throw new Error('Draft does not have an ID - it cannot be deleted')
     }
+    const endpointURL: string = `${this.endpointURL}/drafts`
 
-    return this.request.delete(`${this.endpointURL}/${draft.id}`, {
+    return this.request.delete(`${endpointURL}/${draft.id}`, {
       headers: this.authHeaders(userAuthToken)
     })
   }

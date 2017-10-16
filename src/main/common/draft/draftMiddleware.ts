@@ -9,6 +9,7 @@ import { DraftDocument } from 'app/models/draftDocument'
 import { UUIDUtils } from 'common/utils/uuidUtils'
 import { CoreOptions, RequestAPI } from 'request'
 import { RequestPromise } from 'request-promise-native'
+import { ServiceAuthTokenFactory } from 'common/security/serviceTokenFactory'
 
 /**
  * Filters list of drafts to return only these matching external ID. If none of the drafts has external ID set
@@ -23,15 +24,23 @@ function tryFilterByExternalId<T extends DraftDocument> (drafts: Draft<T>[], ext
 }
 
 export class DraftMiddleware {
+  private serviceAuthTokenFactory: ServiceAuthTokenFactory
 
-  static requestHandler<T extends DraftDocument> (draftType: string,
-                                                  draftStoreUrl: string,
-                                                  request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>,
-                                                  deserializeFn: (value: any) => T = (value) => value): express.RequestHandler {
+  constructor (serviceAuthTokenFactory: ServiceAuthTokenFactory) {
+    this.serviceAuthTokenFactory = serviceAuthTokenFactory
+  }
+
+  requestHandler<T extends DraftDocument> (draftType: string,
+                                           draftStoreUrl: string,
+                                           request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>,
+                                           deserializeFn: (value: any) => T = (value) => value): express.RequestHandler {
+
+    const draftStoreClientFactory = new DraftStoreClientFactory(this.serviceAuthTokenFactory)
+
     return async function (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
       if (res.locals.isLoggedIn) {
         try {
-          const client: DraftStoreClient<T> = await DraftStoreClientFactory.create<T>(draftStoreUrl, request)
+          const client: DraftStoreClient<T> = await draftStoreClientFactory.create<T>(draftStoreUrl, request)
 
           client
             .find({ type: draftType, limit: '100' }, res.locals.user.bearerToken, deserializeFn)

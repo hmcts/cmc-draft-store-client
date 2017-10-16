@@ -12,6 +12,8 @@ import { DraftStoreClientFactory } from 'common/draft/draftStoreClientFactory'
 import { Draft } from 'models/draft'
 import { DraftStoreConfig } from '../../http-mocks/draftStoreConfig'
 import * as requestPromise from 'request-promise-native'
+import { ServiceAuthTokenFactory } from 'common/security/serviceTokenFactory'
+import ServiceAuthToken from 'idam/serviceAuthToken'
 
 chai.use(spies)
 chai.use(asPromised)
@@ -23,6 +25,13 @@ const request = requestPromise
   })
 
 describe('DraftStoreClient', () => {
+  let factory: DraftStoreClientFactory
+  beforeEach(() => {
+
+    let authTokenFactory = <ServiceAuthTokenFactory>{}
+    authTokenFactory.get = sinon.stub().returns(new ServiceAuthToken('jwt-token'))
+    factory = new DraftStoreClientFactory(authTokenFactory)
+  })
 
   describe('find', () => {
     const deserializationFn = (value => value)
@@ -30,7 +39,7 @@ describe('DraftStoreClient', () => {
     describe('when handling error responses', () => {
       it('should reject promise with HTTP error', async () => {
         draftStoreServiceMock.rejectFind()
-        const client: DraftStoreClient<any> = await DraftStoreClientFactory.create(DraftStoreConfig.draftStoreUrl, request)
+        const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
         try {
           await client.find({}, 'jwt-token', deserializationFn)
         } catch (err) {
@@ -44,7 +53,7 @@ describe('DraftStoreClient', () => {
       it('should filter drafts by type if such is provided in query object', async () => {
         draftStoreServiceMock.resolveFind('sample').persist()
 
-        const client: DraftStoreClient<any> = await DraftStoreClientFactory.create(DraftStoreConfig.draftStoreUrl, request)
+        const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
         expect(await client.find({ type: 'sample' }, 'jwt-token', deserializationFn)).to.be.lengthOf(1)
         expect(await client.find({ type: 'something-else' }, 'jwt-token', deserializationFn)).to.be.empty
       })
@@ -53,7 +62,7 @@ describe('DraftStoreClient', () => {
         draftStoreServiceMock.resolveFind('sample')
 
         const spy = sinon.spy(deserializationFn)
-        const client: DraftStoreClient<any> = await DraftStoreClientFactory.create(DraftStoreConfig.draftStoreUrl, request)
+        const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
         await client.find({}, 'jwt-token', spy)
         expect(spy).to.have.been.called
       })
@@ -65,7 +74,7 @@ describe('DraftStoreClient', () => {
       it('should reject promise with HTTP error', async () => {
         draftStoreServiceMock.rejectSave()
 
-        const client: DraftStoreClient<any> = await DraftStoreClientFactory.create(DraftStoreConfig.draftStoreUrl, request)
+        const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
         try {
           await client.save(new Draft(100, 'sample', undefined), 'jwt-token')
         } catch (err) {
@@ -79,7 +88,7 @@ describe('DraftStoreClient', () => {
       it('should resolve promise', async () => {
         draftStoreServiceMock.resolveSave()
 
-        const client: DraftStoreClient<any> = await DraftStoreClientFactory.create(DraftStoreConfig.draftStoreUrl, request)
+        const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
         await client.save(new Draft(100, 'sample', undefined), 'jwt-token')
       })
     })
@@ -90,7 +99,7 @@ describe('DraftStoreClient', () => {
       it('should reject promise with HTTP error', async () => {
         draftStoreServiceMock.rejectDelete()
 
-        const client: DraftStoreClient<any> = await DraftStoreClientFactory.create(DraftStoreConfig.draftStoreUrl, request)
+        const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
         try {
           await client.delete(new Draft(100, 'sample', undefined), 'jwt-token')
         } catch (err) {
@@ -104,7 +113,7 @@ describe('DraftStoreClient', () => {
       it('should resolve promise', async () => {
         draftStoreServiceMock.resolveDelete()
 
-        const client: DraftStoreClient<any> = await DraftStoreClientFactory.create(DraftStoreConfig.draftStoreUrl, request)
+        const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
         await client.delete(new Draft(100, 'sample', undefined), 'jwt-token')
       })
     })

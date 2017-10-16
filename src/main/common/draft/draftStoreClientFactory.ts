@@ -6,10 +6,14 @@ import { RequestPromise } from 'request-promise-native'
 import { ServiceAuthTokenFactory } from 'common/security/serviceTokenFactory'
 
 export class DraftStoreClientFactory {
+  private serviceAuthTokenFactory: ServiceAuthTokenFactory
 
-  static async create<T extends DraftDocument> (draftStoreUrl: string, request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>): Promise<DraftStoreClient<T>> {
-    const { ServiceAuthTokenFactoryImpl } = await import('' + 'common/security/serviceTokenFactoryImpl')
-    const factory: ServiceAuthTokenFactory = (new ServiceAuthTokenFactoryImpl())
+  constructor (serviceAuthTokenFactory: ServiceAuthTokenFactory) {
+    this.serviceAuthTokenFactory = serviceAuthTokenFactory
+  }
+
+  async create<T extends DraftDocument> (draftStoreUrl: string, request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>): Promise<DraftStoreClient<T>> {
+    const factory: ServiceAuthTokenFactory = this.serviceAuthTokenFactory
     const serviceAuthToken: ServiceAuthToken = await factory.get()
     return new DraftStoreClient(serviceAuthToken.bearerToken, draftStoreUrl, request)
   }
