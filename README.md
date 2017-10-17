@@ -1,4 +1,4 @@
-# @hmcts/draft-store-client
+# draft-store-client
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/hmcts/draft-store-client.svg)](https://greenkeeper.io/)
 
