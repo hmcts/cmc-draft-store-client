@@ -13,7 +13,7 @@ To configure the draft store client you need to:
 export interface ServiceAuthTokenFactory {
      get (): Promise<ServiceAuthToken>
    }
-   ```
+```
    
 * Sample implementation:
 ```
@@ -27,7 +27,6 @@ export class ServiceAuthTokenFactoryImpl implements ServiceAuthTokenFactory{
     return token
   }
 }
-
 ```   
 # API available with clients
 * DraftService provides wrapper around creating DraftStoreClientFactory to save and delete draft documents   
