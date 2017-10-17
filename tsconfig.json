@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "declaration": false,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "lib": [
+      "es6",
+      "es2017.object",
+      "dom"
+    ],
+    "target": "es5",
+    "baseUrl": "src/main",
+    "paths": {
+      "app/*": [
+        "app/*"
+      ],
+      "idam/*": [
+        "app/idam/*"
+      ],
+      "models/*": [
+        "app/models/*"
+      ],
+      "common/*": [
+        "common/*"
+      ]
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ]
+  }
+}
