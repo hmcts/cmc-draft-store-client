@@ -16,29 +16,14 @@
       "app/*": [
         "app/*"
       ],
-      "client/*": [
-        "app/client/*"
-      ],
-      "drafts/*": [
-        "app/drafts/*"
-      ],
-      "health/*": [
-        "app/health/*"
-      ],
       "idam/*": [
         "app/idam/*"
-      ],
-      "logging/*": [
-        "app/logging/*"
       ],
       "models/*": [
         "app/models/*"
       ],
       "common/*": [
         "common/*"
-      ],
-      "testing-support/*": [
-        "features/testing-support/*"
       ]
     },
     "typeRoots": [

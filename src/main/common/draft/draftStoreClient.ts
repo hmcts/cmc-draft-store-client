@@ -1,10 +1,9 @@
 import { Draft } from 'app/models/draft'
-import { DraftDocument } from 'app/models/draftDocument'
 import { CoreOptions, RequestAPI } from 'request'
 import { RequestPromise } from 'request-promise-native'
 import moment = require('moment')
 
-export default class DraftStoreClient<T extends DraftDocument> {
+export default class DraftStoreClient<T> {
   constructor (public endpointURL: string,
                public serviceAuthToken: string,
                public request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>) {

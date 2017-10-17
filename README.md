@@ -38,7 +38,7 @@ export class ServiceAuthTokenFactoryImpl implements ServiceAuthTokenFactory{
 
 ### Prerequisites
 
-* [Node.js](https://nodejs.org/) >= v7.2.0
+* [Node.js](https://nodejs.org/) >= v8.4.0
 * [yarn](https://yarnpkg.com/)
 * [Gulp](http://gulpjs.com/)
 
@@ -54,7 +54,7 @@ $ yarn install
 
 ### Code style
 
-We use [TSLint](https://palantir.github.io/tslint/) with [StandardJS](http://standardjs.com/index.html) rules alongside [sass-lint](https://github.com/sasstools/sass-lint)
+We use [TSLint](https://palantir.github.io/tslint/) with [StandardJS](http://standardjs.com/index.html) rules 
 
 Running the linting:
 `yarn lint`

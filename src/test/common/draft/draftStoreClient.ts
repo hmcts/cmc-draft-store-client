@@ -76,7 +76,7 @@ describe('DraftStoreClient', () => {
 
         const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
         try {
-          await client.save(new Draft(100, 'sample', undefined), 'jwt-token')
+          await client.save(new Draft(100, 'sample', undefined, undefined, undefined), 'jwt-token')
         } catch (err) {
           expect(err.name).to.equal('StatusCodeError')
           expect(err.statusCode).to.equal(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -89,7 +89,7 @@ describe('DraftStoreClient', () => {
         draftStoreServiceMock.resolveSave()
 
         const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
-        await client.save(new Draft(100, 'sample', undefined), 'jwt-token')
+        await client.save(new Draft(100, 'sample', undefined, undefined, undefined), 'jwt-token')
       })
     })
   })
@@ -101,7 +101,7 @@ describe('DraftStoreClient', () => {
 
         const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
         try {
-          await client.delete(new Draft(100, 'sample', undefined), 'jwt-token')
+          await client.delete(new Draft(100, 'sample', undefined, undefined, undefined), 'jwt-token')
         } catch (err) {
           expect(err.name).to.equal('StatusCodeError')
           expect(err.statusCode).to.equal(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -114,7 +114,7 @@ describe('DraftStoreClient', () => {
         draftStoreServiceMock.resolveDelete()
 
         const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
-        await client.delete(new Draft(100, 'sample', undefined), 'jwt-token')
+        await client.delete(new Draft(100, 'sample', undefined, undefined, undefined), 'jwt-token')
       })
     })
   })
