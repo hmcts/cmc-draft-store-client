@@ -4,7 +4,7 @@
   "description": "Front end client for draft store",
   "private": true,
   "engines": {
-    "node": ">=8.4.0"
+    "node": ">=8.7.0"
   },
   "scripts": {
     "prepublishOnly": "tsc -p ./ --outDir dist/",

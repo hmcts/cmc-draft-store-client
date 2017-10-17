@@ -1,20 +1,21 @@
 # draft-store-client
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/hmcts/cmc-citizen-frontend.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/hmcts/draft-store-client.svg)](https://greenkeeper.io/)
 
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-This is the draft store client module to access draft store. 
-Below are steps to configure draft store clients
+This is a client library for interacting with the [draft store api](https://github.com/hmcts/draft-store)
 
-* User need to implement ServiceAuthTokenFactory interface to access all client modules.  
+To configure the draft store client you need to:
+
+* Implement the ServiceAuthTokenFactory interface.  
 ```
 export interface ServiceAuthTokenFactory {
      get (): Promise<ServiceAuthToken>
    }
    ```
    
-* Sample Implementation of interface is as follow:
+* Sample implementation:
 ```
 let token: ServiceAuthToken
 
@@ -29,7 +30,7 @@ export class ServiceAuthTokenFactoryImpl implements ServiceAuthTokenFactory{
 
 ```   
 # API available with clients
-* DraftService provides wrapper around creating DraftStoreClientFactory to save and delete draft elements   
+* DraftService provides wrapper around creating DraftStoreClientFactory to save and delete draft documents   
 * DraftStoreClientFactory is responsible for creating DraftStoreClients
 * DraftStoreClient is responsible for search, save and delete od draft store data
 * DraftMiddleware manages number of draft store client can be configured and is available if user is logged in
@@ -38,9 +39,8 @@ export class ServiceAuthTokenFactoryImpl implements ServiceAuthTokenFactory{
 
 ### Prerequisites
 
-* [Node.js](https://nodejs.org/) >= v8.4.0
+* [Node.js](https://nodejs.org/) >= v8.7.0
 * [yarn](https://yarnpkg.com/)
-* [Gulp](http://gulpjs.com/)
 
 ### Running the application
 
@@ -74,10 +74,6 @@ For test coverage:
 ```bash
 $ yarn test:coverage
 ```
-
-## Troubleshooting
-
-### Warnings while running ```yarn install``` on yarn version 1.0.1
 
 ## License
 

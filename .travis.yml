@@ -2,7 +2,6 @@ language: node_js
 cache: yarn
 script:
 - yarn --version
-- yarn setup
 - yarn check --integrity
 - yarn lint
 - yarn test
