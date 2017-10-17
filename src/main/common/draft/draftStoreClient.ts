@@ -12,7 +12,9 @@ export default class DraftStoreClient<T> {
     this.request = request
   }
 
-  find (query: { [key: string]: string }, userAuthToken: string, deserializationFn: (value: any) => T): Promise<Draft<T>[]> {
+  find (query: { [key: string]: string }, userAuthToken: string,
+        deserializationFn: (value: any) => T): Promise<Draft<T>[]> {
+
     const { type, ...qs } = query
     const endpointURL: string = `${this.endpointURL}/drafts`
 
@@ -54,13 +56,13 @@ export default class DraftStoreClient<T> {
     }
   }
 
-  delete (draft: Draft<T>, userAuthToken: string): Promise<void> {
-    if (!draft.id) {
+  delete (draftId: number, userAuthToken: string): Promise<void> {
+    if (!draftId) {
       throw new Error('Draft does not have an ID - it cannot be deleted')
     }
     const endpointURL: string = `${this.endpointURL}/drafts`
 
-    return this.request.delete(`${endpointURL}/${draft.id}`, {
+    return this.request.delete(`${endpointURL}/${draftId}`, {
       headers: this.authHeaders(userAuthToken)
     })
   }
