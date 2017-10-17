@@ -32,7 +32,7 @@ export class ServiceAuthTokenFactoryImpl implements ServiceAuthTokenFactory{
 # API available with clients
 * DraftService provides wrapper around creating DraftStoreClientFactory to save and delete draft documents   
 * DraftStoreClientFactory is responsible for creating DraftStoreClients
-* DraftStoreClient is responsible for search, save and delete od draft store data
+* DraftStoreClient is responsible for search, save and delete of draft store data
 * DraftMiddleware manages number of draft store client can be configured and is available if user is logged in
 
 ## Getting Started

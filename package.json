@@ -9,8 +9,8 @@
   "scripts": {
     "prepublishOnly": "tsc -p ./ --outDir dist/",
     "lint": "tslint --project tsconfig.json --type-check",
-    "test": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --opts mocha.opts $(find src/test \\( -name '*.ts' \\)) --reporter-options reportFilename=unit,inlineAssets=true,reportTitle=draft-store-client",
-    "test:coverage": "NODE_ENV=mocha LOG_LEVEL=OFF nyc mocha --opts mocha.opts $(find src/test \\( -name '*.ts' -or -name '*.js' \\))",
+    "test": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --opts mocha.opts --reporter-options reportFilename=unit,inlineAssets=true,reportTitle=draft-store-client",
+    "test:coverage": "NODE_ENV=mocha LOG_LEVEL=OFF nyc mocha --opts mocha.opts ",
     "precommit": "yarn lint",
     "prepush": "yarn test"
   },
