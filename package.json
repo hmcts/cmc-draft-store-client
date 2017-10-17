@@ -1,8 +1,7 @@
 {
-  "name": "draft-store-client",
+  "name": "@hmcts/draft-store-client",
   "version": "1.0.0",
   "description": "Front end client for draft store",
-  "private": true,
   "engines": {
     "node": ">=8.7.0"
   },
