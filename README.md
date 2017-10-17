@@ -1,4 +1,4 @@
-# draft-store-client
+# @hmcts/draft-store-client
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/hmcts/draft-store-client.svg)](https://greenkeeper.io/)
 
@@ -33,6 +33,12 @@ export class ServiceAuthTokenFactoryImpl implements ServiceAuthTokenFactory{
 * DraftStoreClientFactory is responsible for creating DraftStoreClients
 * DraftStoreClient is responsible for search, save and delete of draft store data
 * DraftMiddleware manages number of draft store client can be configured and is available if user is logged in
+
+# To add library
+
+```
+yarn add @hmcts/draft-store-client
+```
 
 ## Getting Started
 
