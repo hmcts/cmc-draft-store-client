@@ -4,9 +4,13 @@ import { RequestPromise } from 'request-promise-native'
 import moment = require('moment')
 
 export default class DraftStoreClient<T> {
-  constructor (public endpointURL: string,
-               public serviceAuthToken: string,
-               public request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>) {
+  private endpointURL: string
+  private serviceAuthToken: string
+  private request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>
+
+  constructor (endpointURL: string,
+               serviceAuthToken: string,
+               request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>) {
     this.endpointURL = endpointURL
     this.serviceAuthToken = serviceAuthToken
     this.request = request

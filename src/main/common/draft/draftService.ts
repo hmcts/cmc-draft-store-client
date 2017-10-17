@@ -7,9 +7,13 @@ import { RequestPromise } from 'request-promise-native'
 import { ServiceAuthTokenFactory } from 'common/security/serviceTokenFactory'
 
 export class DraftService {
-  constructor (public draftStoreUri: string,
-               public request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>,
-               public serviceAuthTokenFactory: ServiceAuthTokenFactory) {
+  private draftStoreUri: string
+  private request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>
+  private serviceAuthTokenFactory: ServiceAuthTokenFactory
+
+  constructor (draftStoreUri: string,
+               request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>,
+               serviceAuthTokenFactory: ServiceAuthTokenFactory) {
     this.draftStoreUri = draftStoreUri
     this.request = request
     this.serviceAuthTokenFactory = serviceAuthTokenFactory
