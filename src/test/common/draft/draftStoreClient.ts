@@ -7,13 +7,13 @@ import * as HttpStatus from 'http-status-codes'
 
 import * as draftStoreServiceMock from '../../http-mocks/draft-store'
 
-import DraftStoreClient from 'common/draft/draftStoreClient'
-import { DraftStoreClientFactory } from 'common/draft/draftStoreClientFactory'
-import { Draft } from 'models/draft'
 import { DraftStoreConfig } from '../../http-mocks/draftStoreConfig'
 import * as requestPromise from 'request-promise-native'
-import { ServiceAuthTokenFactory } from 'common/security/serviceTokenFactory'
-import ServiceAuthToken from 'idam/serviceAuthToken'
+import { DraftStoreClientFactory } from '../../../main/common/draft/draftStoreClientFactory'
+import { ServiceAuthTokenFactory } from '../../../main/common/security/serviceTokenFactory'
+import ServiceAuthToken from '../../../main/app/idam/serviceAuthToken'
+import DraftStoreClient from '../../../main/common/draft/draftStoreClient'
+import { Draft } from '../../../main/app/models/draft'
 
 chai.use(spies)
 chai.use(asPromised)
