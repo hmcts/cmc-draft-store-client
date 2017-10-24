@@ -1,7 +1,7 @@
-import { Draft } from 'app/models/draft'
 import { CoreOptions, RequestAPI } from 'request'
 import { RequestPromise } from 'request-promise-native'
 import moment = require('moment')
+import { Draft } from '../../app/models/draft'
 
 export default class DraftStoreClient<T> {
   private endpointURL: string

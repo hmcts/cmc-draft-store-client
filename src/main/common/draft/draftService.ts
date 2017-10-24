@@ -1,10 +1,9 @@
-import DraftStoreClient from 'common/draft/draftStoreClient'
-
-import { Draft } from 'app/models/draft'
-import { DraftStoreClientFactory } from 'common/draft/draftStoreClientFactory'
 import { CoreOptions, RequestAPI } from 'request'
 import { RequestPromise } from 'request-promise-native'
-import { ServiceAuthTokenFactory } from 'common/security/serviceTokenFactory'
+import { ServiceAuthTokenFactory } from '../security/serviceTokenFactory'
+import { DraftStoreClientFactory } from './draftStoreClientFactory'
+import { Draft } from '../../app/models/draft'
+import DraftStoreClient from './draftStoreClient'
 
 export class DraftService {
   private draftStoreUri: string

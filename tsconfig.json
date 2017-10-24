@@ -11,24 +11,14 @@
       "dom"
     ],
     "target": "es5",
-    "baseUrl": "src/main",
-    "paths": {
-      "app/*": [
-        "app/*"
-      ],
-      "idam/*": [
-        "app/idam/*"
-      ],
-      "models/*": [
-        "app/models/*"
-      ],
-      "common/*": [
-        "common/*"
-      ]
-    },
     "typeRoots": [
       "./node_modules/@types",
       "./types"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "src/test",
+    "types"
+  ]
 }
