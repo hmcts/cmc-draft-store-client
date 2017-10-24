@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
     "alwaysStrict": true,
-    "declaration": false,
     "noUnusedLocals": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
+    "strictNullChecks": true,
+    "declaration": true,
+    "outDir": "dist/",
     "lib": [
+      "es2015",
       "es6",
       "es2017.object",
       "dom"
@@ -13,7 +16,7 @@
     "target": "es5",
     "typeRoots": [
       "./node_modules/@types",
-      "./types"
+      "./test/types"
     ]
   },
   "exclude": [

@@ -1,6 +1,6 @@
 import { CoreOptions, RequestAPI } from 'request'
 import { RequestPromise } from 'request-promise-native'
-import moment = require('moment')
+import * as moment from 'moment'
 import { Draft } from '../../app/models/draft'
 
 export default class DraftStoreClient<T> {
