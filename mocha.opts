@@ -1,4 +1,2 @@
-src/test/common/draft
---compilers ts:ts-node/register
---require tsconfig-paths/register
+--require ts-node/register
 --reporter mochawesome
