@@ -6,7 +6,7 @@
     "node": ">=8.7.0"
   },
   "scripts": {
-    "prepublishOnly": "tsc -p ./",
+    "prepublishOnly": "tsc -p tsconfig.publish.json",
     "postpublish": "rm -rf dist/",
     "lint": "tslint --project tsconfig.json",
     "test": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --opts mocha.opts --reporter-options reportFilename=unit,inlineAssets=true,reportTitle=draft-store-client 'src/test/draft/**/*.ts'",
