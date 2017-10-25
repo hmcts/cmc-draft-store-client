@@ -1,9 +1,11 @@
 import { CoreOptions, RequestAPI } from 'request'
 import { RequestPromise } from 'request-promise-native'
-import { ServiceAuthTokenFactory } from '../security/serviceTokenFactory'
+
+import { ServiceAuthTokenFactory } from '../security/serviceAuthTokenFactory'
+
+import { Draft } from './draft'
+import { DraftStoreClient } from './draftStoreClient'
 import { DraftStoreClientFactory } from './draftStoreClientFactory'
-import { Draft } from '../../app/models/draft'
-import DraftStoreClient from './draftStoreClient'
 
 export class DraftService {
   private draftStoreUri: string
