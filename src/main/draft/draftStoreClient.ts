@@ -1,9 +1,10 @@
 import { CoreOptions, RequestAPI } from 'request'
 import { RequestPromise } from 'request-promise-native'
 import * as moment from 'moment'
-import { Draft } from '../../app/models/draft'
 
-export default class DraftStoreClient<T> {
+import { Draft } from './draft'
+
+export class DraftStoreClient<T> {
   private endpointURL: string
   private serviceAuthToken: string
   private request: RequestAPI<RequestPromise, CoreOptions, CoreOptions>

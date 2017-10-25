@@ -1,8 +1,10 @@
 import { CoreOptions, RequestAPI } from 'request'
 import { RequestPromise } from 'request-promise-native'
-import { ServiceAuthTokenFactory } from '../security/serviceTokenFactory'
-import DraftStoreClient from './draftStoreClient'
-import ServiceAuthToken from '../../app/idam/serviceAuthToken'
+
+import { ServiceAuthToken } from '../security/serviceAuthToken'
+import { ServiceAuthTokenFactory } from '../security/serviceAuthTokenFactory'
+
+import { DraftStoreClient } from './draftStoreClient'
 
 export class DraftStoreClientFactory {
   private serviceAuthTokenFactory: ServiceAuthTokenFactory

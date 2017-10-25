@@ -1,9 +1,8 @@
 import * as mock from 'nock'
 import { Scope } from 'nock'
 import * as HttpStatus from 'http-status-codes'
-import { DraftStoreConfig } from './draftStoreConfig'
 
-const serviceBaseURL: string = DraftStoreConfig.draftStoreUrl
+export const serviceBaseURL = 'http://localhost:8800'
 
 export function resolveFind (draftType: string, draftOverride?: object): Scope {
   let documentDocument: object
