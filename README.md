@@ -44,7 +44,7 @@ yarn add @hmcts/draft-store-client
 
 ### Prerequisites
 
-* [Node.js](https://nodejs.org/) >= v8.7.0
+* [Node.js](https://nodejs.org/) >= v8.0.0
 * [yarn](https://yarnpkg.com/)
 
 ### Running the application
