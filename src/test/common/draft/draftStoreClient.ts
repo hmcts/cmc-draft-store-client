@@ -14,6 +14,7 @@ import { ServiceAuthTokenFactory } from '../../../main/common/security/serviceTo
 import ServiceAuthToken from '../../../main/app/idam/serviceAuthToken'
 import DraftStoreClient from '../../../main/common/draft/draftStoreClient'
 import { Draft } from '../../../main/app/models/draft'
+import * as moment from 'moment'
 
 chai.use(spies)
 chai.use(asPromised)
@@ -76,7 +77,7 @@ describe('DraftStoreClient', () => {
 
         const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
         try {
-          await client.save(new Draft(100, 'sample', undefined, undefined, undefined), 'jwt-token')
+          await client.save(new Draft(100, 'sample', undefined, moment(), moment()), 'jwt-token')
         } catch (err) {
           expect(err.name).to.equal('StatusCodeError')
           expect(err.statusCode).to.equal(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -89,7 +90,7 @@ describe('DraftStoreClient', () => {
         draftStoreServiceMock.resolveSave()
 
         const client: DraftStoreClient<any> = await factory.create(DraftStoreConfig.draftStoreUrl, request)
-        await client.save(new Draft(100, 'sample', undefined, undefined, undefined), 'jwt-token')
+        await client.save(new Draft(100, 'sample', undefined, moment(), moment()), 'jwt-token')
       })
     })
   })
