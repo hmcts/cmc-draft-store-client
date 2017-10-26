@@ -1,12 +1,9 @@
 export class Secrets {
 
-  readonly primary: string
-  readonly secondary?: string
-
-  constructor (primary: string, secondary?: string) {
-    this.primary = primary
-    this.secondary = secondary
-  }
+  constructor (
+    public readonly primary: string,
+    public readonly secondary?: string
+  ) { }
 
   asHeader (): string {
     return this.secondary ? `${this.primary},${this.secondary}` : this.primary
