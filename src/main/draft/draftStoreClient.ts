@@ -3,6 +3,8 @@ import { RequestPromise } from 'request-promise-native'
 import * as moment from 'moment'
 
 import { Draft } from './draft'
+import { Secrets } from '../crypto/secrets'
+import { HeadersBuilder } from './headersBuilder'
 
 export class DraftStoreClient<T> {
   private endpointURL: string
@@ -17,8 +19,12 @@ export class DraftStoreClient<T> {
     this.request = request
   }
 
-  find (query: { [key: string]: string }, userAuthToken: string,
-        deserializationFn: (value: any) => T): Promise<Draft<T>[]> {
+  find (
+    query: { [key: string]: string },
+    userAuthToken: string,
+    deserializationFn: (value: any) => T,
+    secrets?: Secrets
+  ): Promise<Draft<T>[]> {
 
     const { type, ...qs } = query
     const endpointURL: string = `${this.endpointURL}/drafts`
@@ -26,7 +32,7 @@ export class DraftStoreClient<T> {
     return this.request
       .get(endpointURL, {
         qs: qs,
-        headers: this.authHeaders(userAuthToken)
+        headers: HeadersBuilder.buildHeaders(userAuthToken, this.serviceAuthToken, secrets)
       })
       .then((response: any) => {
         return response.data
@@ -43,9 +49,9 @@ export class DraftStoreClient<T> {
       })
   }
 
-  save (draft: Draft<T>, userAuthToken: string): Promise<void> {
+  save (draft: Draft<T>, userAuthToken: string, secrets?: Secrets): Promise<void> {
     const options = {
-      headers: this.authHeaders(userAuthToken),
+      headers: HeadersBuilder.buildHeaders(userAuthToken, this.serviceAuthToken, secrets),
       body: {
         type: draft.type,
         document: draft.document
@@ -68,14 +74,7 @@ export class DraftStoreClient<T> {
     const endpointURL: string = `${this.endpointURL}/drafts`
 
     return this.request.delete(`${endpointURL}/${draftId}`, {
-      headers: this.authHeaders(userAuthToken)
+      headers: HeadersBuilder.buildHeaders(userAuthToken, this.serviceAuthToken)
     })
-  }
-
-  private authHeaders (userAuthToken: string) {
-    return {
-      'Authorization': `Bearer ${userAuthToken}`,
-      'ServiceAuthorization': `Bearer ${this.serviceAuthToken}`
-    }
   }
 }

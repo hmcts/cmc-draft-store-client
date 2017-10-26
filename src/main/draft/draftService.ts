@@ -6,6 +6,7 @@ import { ServiceAuthTokenFactory } from '../security/serviceAuthTokenFactory'
 import { Draft } from './draft'
 import { DraftStoreClient } from './draftStoreClient'
 import { DraftStoreClientFactory } from './draftStoreClientFactory'
+import { Secrets } from '../crypto/secrets'
 
 export class DraftService {
   private draftStoreUri: string
@@ -20,21 +21,26 @@ export class DraftService {
     this.serviceAuthTokenFactory = serviceAuthTokenFactory
   }
 
-  async find<T> (draftType: string, limit: string = '100', userToken: string,
-                 deserializationFn: (value: any) => T): Promise<Draft<T>[]> {
+  async find<T> (
+    draftType: string,
+    limit: string = '100',
+    userToken: string,
+    deserializationFn: (value: any) => T,
+    secrets?: Secrets
+  ): Promise<Draft<T>[]> {
 
     const client: DraftStoreClient<T>
       = await new DraftStoreClientFactory(this.serviceAuthTokenFactory).create<T>(this.draftStoreUri, this.request)
 
-    return client.find({ type: draftType, limit: limit }, userToken, deserializationFn)
+    return client.find({ type: draftType, limit: limit }, userToken, deserializationFn, secrets)
   }
 
-  async save<T> (draft: Draft<T>, userToken: string): Promise<void> {
+  async save<T> (draft: Draft<T>, userToken: string, secrets?: Secrets): Promise<void> {
 
     const client: DraftStoreClient<T>
       = await new DraftStoreClientFactory(this.serviceAuthTokenFactory).create<T>(this.draftStoreUri, this.request)
 
-    return client.save(draft, userToken)
+    return client.save(draft, userToken, secrets)
   }
 
   async delete<T> (draftId: number, userToken: string): Promise<void> {
