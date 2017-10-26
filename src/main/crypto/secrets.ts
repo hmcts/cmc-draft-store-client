@@ -1,7 +1,7 @@
 export class Secrets {
 
   readonly primary: string
-  readonly secondary: string | void
+  readonly secondary?: string
 
   constructor (primary: string, secondary?: string) {
     this.primary = primary
