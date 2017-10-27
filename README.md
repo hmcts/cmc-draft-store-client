@@ -51,6 +51,12 @@ export class ServiceAuthTokenFactoryImpl implements ServiceAuthTokenFactory{
 $ yarn add @hmcts/draft-store-client
 ```
 
+or
+
+```
+$ npm install @hmcts/draft-store-client
+```
+
 ## Getting Started
 
 ### Prerequisites
