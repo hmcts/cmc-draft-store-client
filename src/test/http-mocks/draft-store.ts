@@ -33,6 +33,12 @@ export function resolveFindNoDraftFound (): Scope {
     })
 }
 
+export function resolveReadOne (body: any): Scope {
+  return mock(serviceBaseURL)
+    .get(new RegExp('/drafts/.*'))
+    .reply(HttpStatus.OK, body)
+}
+
 export function rejectFind (reason: string = 'HTTP error'): Scope {
   return mock(serviceBaseURL)
     .get(new RegExp('/drafts.*'))

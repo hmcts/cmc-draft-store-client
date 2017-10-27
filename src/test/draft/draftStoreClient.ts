@@ -6,6 +6,7 @@ import * as asPromised from 'chai-as-promised'
 import * as requestPromise from 'request-promise-native'
 import * as HttpStatus from 'http-status-codes'
 import * as moment from 'moment'
+import * as mock from 'nock'
 
 import * as draftStoreServiceMock from '../http-mocks/draft-store'
 
@@ -28,7 +29,7 @@ const request = requestPromise
 describe('DraftStoreClient', () => {
   let factory: DraftStoreClientFactory
   beforeEach(() => {
-
+    mock.cleanAll()
     let authTokenFactory = {} as ServiceAuthTokenFactory
     authTokenFactory.get = sinon.stub().returns(new ServiceAuthToken('jwt-token'))
     factory = new DraftStoreClientFactory(authTokenFactory)
@@ -66,6 +67,34 @@ describe('DraftStoreClient', () => {
         const client: DraftStoreClient<any> = await factory.create(draftStoreServiceMock.serviceBaseURL, request)
         await client.find({}, 'jwt-token', spy)
         expect(spy).to.have.been.called
+      })
+    })
+  })
+
+  describe('read one', () => {
+    describe('when handling successful response', () => {
+      it('should map response to Draft model', async () => {
+        const modelFromApi = {
+          id: '123',
+          type: 'some_type',
+          document: {
+            a: 1,
+            b: 2
+          },
+          created: '2017-10-01T12:00:00',
+          updated: '2017-10-01T12:01:00'
+        }
+
+        draftStoreServiceMock.resolveReadOne(modelFromApi)
+
+        const client: DraftStoreClient<any> = await factory.create(draftStoreServiceMock.serviceBaseURL, request)
+        const draft: Draft<any> = await client.readOne('123', 'token', (doc => doc))
+
+        expect(draft.id).to.equal(modelFromApi.id)
+        expect(draft.type).to.equal(modelFromApi.type)
+        expect(draft.document).to.deep.equal(modelFromApi.document)
+        expect(draft.created).to.deep.equal(moment(modelFromApi.created))
+        expect(draft.updated).to.deep.equal(moment(modelFromApi.updated))
       })
     })
   })

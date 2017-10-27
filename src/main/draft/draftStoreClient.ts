@@ -35,17 +35,25 @@ export class DraftStoreClient<T> {
         headers: HeadersBuilder.buildHeaders(userAuthToken, this.serviceAuthToken, secrets)
       })
       .then((response: any) => {
-        return response.data
+        return response
+          .data
           .filter(draft => type ? draft.type === type : true)
-          .map(draft => {
-            return new Draft(
-              draft.id,
-              draft.type,
-              deserializationFn(draft.document),
-              moment(draft.created),
-              moment(draft.updated)
-            )
-          })
+          .map(draft => this.mapToModel(draft, deserializationFn))
+      })
+  }
+
+  readOne (
+    id: string,
+    userAuthToken: string,
+    docDeserializationFn: (value: any) => T,
+    secrets?: Secrets
+  ): Promise<Draft<T>> {
+    return this.request
+      .get(`${this.endpointURL}/drafts/${id}`, {
+        headers: HeadersBuilder.buildHeaders(userAuthToken, this.serviceAuthToken, secrets)
+      })
+      .then((response: any) => {
+        return this.mapToModel(response, docDeserializationFn)
       })
   }
 
@@ -76,5 +84,15 @@ export class DraftStoreClient<T> {
     return this.request.delete(`${endpointURL}/${draftId}`, {
       headers: HeadersBuilder.buildHeaders(userAuthToken, this.serviceAuthToken)
     })
+  }
+
+  private mapToModel (draft: any, docDeserializationFn: (value: any) => T): Draft<T> {
+    return new Draft(
+       draft.id,
+       draft.type,
+       docDeserializationFn(draft.document),
+       moment(draft.created),
+       moment(draft.updated)
+    )
   }
 }
