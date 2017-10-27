@@ -1,5 +1,13 @@
 # @hmcts/draft-store-client
 
+[![Travis badge](https://api.travis-ci.org/hmcts/draft-store-client.svg?branch=master)](https://travis-ci.org/hmcts/draft-store-client)
+
+[![Codecov badge](https://codecov.io/gh/hmcts/draft-store-client/graphs/badge.svg)](https://codecov.io/github/hmcts/draft-store-client)
+
+[![NPM version badge](https://img.shields.io/npm/v/@hmcts/draft-store-client.svg)](https://www.npmjs.com/@hmcts/draft-store-client)
+
+[![Node version badge](https://img.shields.io/node/v/@hmcts/draft-store-client.svg)](https://www.npmjs.com/@hmcts/draft-store-client)
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/hmcts/draft-store-client.svg)](https://greenkeeper.io/)
 
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
@@ -47,7 +55,7 @@ $ yarn add @hmcts/draft-store-client
 
 ### Prerequisites
 
-* [Node.js](https://nodejs.org/) >= v8.0.0
+* [Node.js](https://nodejs.org/)
 * [yarn](https://yarnpkg.com/)
 
 ### Running the application
