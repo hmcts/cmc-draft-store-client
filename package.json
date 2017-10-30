@@ -13,6 +13,8 @@
     "lint": "tslint --project tsconfig.json",
     "test": "NODE_ENV=mocha LOG_LEVEL=OFF mocha --opts mocha.opts --reporter-options reportFilename=unit,inlineAssets=true,reportTitle=draft-store-client 'src/test/draft/**/*.ts'",
     "test:coverage": "NODE_ENV=mocha LOG_LEVEL=OFF nyc mocha --opts mocha.opts 'src/test/draft/**/*.ts'",
+    "test:codacy-upload": "cat ./coverage-report/lcov.info | codacy-coverage",
+    "test:codecov-upload": "nyc report --reporter=json && codecov -f coverage-report/*.json",
     "precommit": "yarn lint",
     "prepush": "yarn test"
   },
@@ -23,6 +25,8 @@
   "author": "HMCTS Reform",
   "license": "MIT",
   "dependencies": {
+    "codacy-coverage": "^2.0.3",
+    "codecov": "^3.0.0",
     "moment": "^2.18.1",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.3"
