@@ -32,7 +32,7 @@ export function resolveFindNoDraftFound (): mock.Scope {
     })
 }
 
-export function resolveReadOne (body: any): Scope {
+export function resolveReadOne (body: any): mock.Scope {
   return mock(serviceBaseURL)
     .get(new RegExp('/drafts/.*'))
     .reply(HttpStatus.OK, body)
