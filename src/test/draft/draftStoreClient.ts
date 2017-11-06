@@ -85,7 +85,7 @@ describe('DraftStoreClient', () => {
           updated: '2017-10-01T12:01:00'
         }
 
-        draftStoreServiceMock.resolveReadOne(modelFromApi)
+        draftStoreServiceMock.resolveRead(modelFromApi)
 
         const client: DraftStoreClient<any> = await factory.create(draftStoreServiceMock.serviceBaseURL, request)
         const draft: Draft<any> = await client.read('123', 'token', (doc => doc))
