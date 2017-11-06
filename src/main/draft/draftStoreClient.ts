@@ -42,7 +42,7 @@ export class DraftStoreClient<T> {
       })
   }
 
-  readOne (
+  read (
     id: string,
     userAuthToken: string,
     docDeserializationFn: (value: any) => T,

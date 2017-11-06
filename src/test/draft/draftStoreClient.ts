@@ -88,7 +88,7 @@ describe('DraftStoreClient', () => {
         draftStoreServiceMock.resolveReadOne(modelFromApi)
 
         const client: DraftStoreClient<any> = await factory.create(draftStoreServiceMock.serviceBaseURL, request)
-        const draft: Draft<any> = await client.readOne('123', 'token', (doc => doc))
+        const draft: Draft<any> = await client.read('123', 'token', (doc => doc))
 
         expect(draft.id).to.equal(modelFromApi.id)
         expect(draft.type).to.equal(modelFromApi.type)

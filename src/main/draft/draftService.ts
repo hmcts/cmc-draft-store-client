@@ -35,7 +35,7 @@ export class DraftService {
     return client.find({ type: draftType, limit: limit }, userToken, deserializationFn, secrets)
   }
 
-  async readOne<T> (
+  async read<T> (
     id: string,
     userToken: string,
     docDeserializationFn: (value: any) => T,
@@ -44,7 +44,7 @@ export class DraftService {
     const client: DraftStoreClient<T>
       = await new DraftStoreClientFactory(this.serviceAuthTokenFactory).create<T>(this.draftStoreUri, this.request)
 
-    return client.readOne(id, userToken, docDeserializationFn, secrets)
+    return client.read(id, userToken, docDeserializationFn, secrets)
   }
 
   async save<T> (draft: Draft<T>, userToken: string, secrets?: Secrets): Promise<void> {
