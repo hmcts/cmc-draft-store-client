@@ -34,7 +34,7 @@
   "devDependencies": {
     "@types/chai": "^4.0.3",
     "@types/chai-as-promised": "^7.1.0",
-    "@types/chai-spies": "^0.0.0",
+    "@types/chai-spies": "^1.0.0",
     "@types/http-status-codes": "^1.0.29",
     "@types/lodash": "^4.14.78",
     "@types/mocha": "*",
