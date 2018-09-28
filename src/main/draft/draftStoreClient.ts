@@ -57,7 +57,7 @@ export class DraftStoreClient<T> {
       })
   }
 
-  save (draft: Draft<T>, userAuthToken: string, secrets?: Secrets): Promise<void> {
+  async save (draft: Draft<T>, userAuthToken: string, secrets?: Secrets): Promise<void> {
     const options = {
       headers: HeadersBuilder.buildHeaders(userAuthToken, this.serviceAuthToken, secrets),
       body: {
@@ -69,19 +69,19 @@ export class DraftStoreClient<T> {
     const endpointURL: string = `${this.endpointURL}/drafts`
 
     if (!draft.id) {
-      return this.request.post(endpointURL, options)
+      await this.request.post(endpointURL, options)
     } else {
-      return this.request.put(`${endpointURL}/${draft.id}`, options)
+      await this.request.put(`${endpointURL}/${draft.id}`, options)
     }
   }
 
-  delete (draftId: number, userAuthToken: string): Promise<void> {
+  async delete (draftId: number, userAuthToken: string): Promise<void> {
     if (!draftId) {
       throw new Error('Draft does not have an ID - it cannot be deleted')
     }
     const endpointURL: string = `${this.endpointURL}/drafts`
 
-    return this.request.delete(`${endpointURL}/${draftId}`, {
+    await this.request.delete(`${endpointURL}/${draftId}`, {
       headers: HeadersBuilder.buildHeaders(userAuthToken, this.serviceAuthToken)
     })
   }
