@@ -40,7 +40,7 @@
     "@types/mocha": "*",
     "@types/nock": "^9.3.0",
     "@types/node": "^8.0.24",
-    "@types/request-promise-native": "^1.0.2",
+    "@types/request-promise-native": "^1.0.15",
     "@types/sinon-chai": "^3.2.0",
     "@types/supertest": "*",
     "chai": "^4.1.1",
